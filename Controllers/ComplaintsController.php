@@ -106,4 +106,20 @@ class ComplaintsController extends Controller
 
         return Redirect::send("complaint", ["success" => "Item removed!"]);
     }
+
+
+    /**
+     * Solve the current complaint.
+     */
+    public function solve()
+    {
+        if (!isset($_GET['id']) && !empty($_GET['id'])) return Redirect::send("complaint", ["danger" => "Invalid ID"]);
+
+        $complaint = new ComplaintModel();
+        $complaint->update($_GET["id"] , [
+            "solved" => true
+        ]);
+
+        return Redirect::send("complaint", ["success" => "Item solved!"]);
+    }
 }

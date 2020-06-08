@@ -38,16 +38,23 @@ Route::set('complaint@store' , function() {
 //everything beyond this is only available once the user is logged in
 if (!\Classes\Auth::loggedIn()) return false;
 
-//complaints
-Route::set('complaint' , function() {
-    ComplaintsController::index();
-});
-Route::set('complaint-edit' , function() {
-    ComplaintsController::edit();
-});
-Route::set('complaint@update' , function() {
-    ComplaintsController::update();
-});
-Route::set('complaint@destroy' , function() {
-    ComplaintsController::destroy();
-});
+
+if(\Classes\Auth::hasPermision(10)) {
+    //complaints
+    Route::set('complaint' , function() {
+        ComplaintsController::index();
+    });
+    Route::set('complaint-edit' , function() {
+        ComplaintsController::edit();
+    });
+    Route::set('complaint@update' , function() {
+        ComplaintsController::update();
+    });
+    Route::set('complaint@solve' , function() {
+        ComplaintsController::solve();
+    });
+    Route::set('complaint@destroy' , function() {
+        ComplaintsController::destroy();
+    });
+}
+
