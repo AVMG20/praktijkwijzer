@@ -1,38 +1,44 @@
-<form action="example@store" method="post">
+<form action="complaint@store" method="post">
     <div class="card-box">
 
+        <h2>Klachten formulier</h2>
+        <hr>
+
         <div class="form-group mb-3">
-            <label for="name">name</label>
-            <input type="text" name="name" value="<?php echo \Classes\Old::getOld('name') ?>" class="form-control">
+            <label for="name">Voornaam</label>
+            <input type="text" name="firstname" value="<?php echo \Classes\Old::getOld('firstname') ?>" class="form-control">
         </div>
 
         <div class="form-group mb-3">
-            <label for="achternaam">achternaam</label>
-            <input type="text" name="achternaam" value="<?php echo \Classes\Old::getOld('achternaam') ?>" class="form-control">
+            <label for="achternaam">Achternaam</label>
+            <input type="text" name="lastname" value="<?php echo \Classes\Old::getOld('lastname') ?>" class="form-control">
         </div>
 
         <div class="form-group mb-3">
-            <label for="email">email</label>
+            <label for="email">Email</label>
             <input type="email" name="email" value="<?php echo \Classes\Old::getOld('email') ?>" class="form-control">
         </div>
 
         <div class="form-group mb-3">
-            <label for="onderwerp">name</label>
-            <input type="text" name="onderwerp" value="<?php echo \Classes\Old::getOld('onderwerp') ?>" class="form-control">
+            <label for="subject">Onderwerp</label>
+            <input type="text" name="subject" value="<?php echo \Classes\Old::getOld('subject') ?>" class="form-control">
         </div>
 
         <div class="form-group mb-3">
-            <label for="name">prioriteit</label>
-            <input type="select" name="prioriteit" value="<?php echo \Classes\Old::getOld('prioriteit') ?>" class="form-control">
+            <label for="name">Prioriteit</label>
+
+            <select name="priority_id" value="<?php echo \Classes\Old::getOld('priority_id') ?>" class="form-control">
+                <?php foreach ($data as $prior) {
+                    ?> <option value="<?=$prior->id?>"><?=$prior->name?></option> <?php
+                }?>
+            </select>
         </div> 
 
         <div class="form-group mb-3">
             <label for="klacht">klacht</label>
-            <input type="text" name="klacht" value="<?php echo \Classes\Old::getOld('klacht') ?>" class="form-control">
+            <textarea rows="8" type="text" name="complaint" value="<?php echo \Classes\Old::getOld('complaint') ?>" class="form-control"></textarea>
         </div>
 
-
-       
 
         <div class="form-group">
             <div class="text-right">

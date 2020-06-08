@@ -47,12 +47,16 @@ if(\Classes\Auth::hasPermision(10)) {
     Route::set('complaint-edit' , function() {
         ComplaintsController::edit();
     });
+    Route::set('complaint-show' , function() {
+        ComplaintsController::show();
+    });
     Route::set('complaint@update' , function() {
         ComplaintsController::update();
     });
     Route::set('complaint@solve' , function() {
         ComplaintsController::solve();
     });
+
     Route::set('complaint@destroy' , function() {
         ComplaintsController::destroy();
     });

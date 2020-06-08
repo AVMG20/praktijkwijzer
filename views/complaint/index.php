@@ -29,7 +29,8 @@
             <td><?php echo $complaint->subject?></td>
             <td><?php echo $complaint->updatedAt?></td>
             <td><?php echo (boolval($complaint->solved) ? 'true' : 'false')?></td>
-            <td width="120">
+            <td width="150">
+                <a href="<?php echo \Classes\Redirect::route("complaint-show?id={$complaint->id}")?>" class="btn btn-xs btn-warning"><i class="fe-eye"></i></a>
                 <a href="<?php echo \Classes\Redirect::route("complaint-edit?id={$complaint->id}")?>" class="btn btn-xs btn-info"><i class="fe-edit-1"></i></a>
                 <a href="<?php echo \Classes\Redirect::route("complaint@destroy?id={$complaint->id}")?>"  class="btn btn-xs btn-danger"><i class="fe-trash"></i></a>
                 <a href="<?php echo \Classes\Redirect::route("complaint@solve?id={$complaint->id}")?>" <?php if ($complaint->solved) echo "disabled"; ?> class="btn btn-xs btn-success <?php if ($complaint->solved) echo "disabled"; ?>"><i class="fe-check-circle"></i></a>

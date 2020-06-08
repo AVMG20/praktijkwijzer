@@ -5,6 +5,7 @@ namespace Controllers;
 use Classes\Controller;
 use Classes\Redirect;
 use Models\ComplaintModel;
+use Models\PriorityModel;
 
 class ComplaintsController extends Controller
 {
@@ -24,7 +25,9 @@ class ComplaintsController extends Controller
      */
     public function create()
     {
-        return self::view('complaint/create');
+        $priority = new PriorityModel();
+
+        return self::view('complaint/create' , $priority->all());
     }
 
     /**
@@ -40,9 +43,12 @@ class ComplaintsController extends Controller
         }
 
         $complaint->create([
-            "name" => $_POST['name'],
-            "amount" => $_POST['amount'],
-            "price" => $_POST['price'],
+            "firstname" => $_POST['firstname'],
+            "lastname" => $_POST['lastname'],
+            "email" => $_POST['email'],
+            "subject" => $_POST['subject'],
+            "priority_id" => $_POST['priority_id'],
+            "complaint" => $_POST['complaint'],
         ]);
 
         return Redirect::send('complaint', ["success" => "Test item created!"]);
@@ -53,7 +59,20 @@ class ComplaintsController extends Controller
      */
     public function show()
     {
-        //
+        $complaint = new ComplaintModel();
+
+        $priority = new PriorityModel();
+
+        if (!isset($_GET['id']) && !empty($_GET['id'])) {
+            Redirect::send('complaint', ["danger" => "Invalid ID"]);
+            return false;
+        }
+
+        return self::view('complaint/show', [
+            "id" => $_GET["id"],
+            "complaint" => $complaint->find($_GET['id']),
+            "priorities" => $priority->all()
+        ]);
     }
 
     /**
@@ -63,6 +82,8 @@ class ComplaintsController extends Controller
     {
         $complaint = new ComplaintModel();
 
+        $priority = new PriorityModel();
+
         if (!isset($_GET['id']) && !empty($_GET['id'])) {
             Redirect::send('complaint', ["danger" => "Invalid ID"]);
             return false;
@@ -70,7 +91,8 @@ class ComplaintsController extends Controller
 
         return self::view('complaint/edit', [
             "id" => $_GET["id"],
-            "product" => $complaint->find($_GET['id'])
+            "complaint" => $complaint->find($_GET['id']),
+            "priorities" => $priority->all()
         ]);
     }
 
@@ -86,9 +108,12 @@ class ComplaintsController extends Controller
         $complaint = new ComplaintModel();
 
         $complaint->update($_POST['id'], [
-            "name" => $_POST['name'],
-            "amount" => $_POST['amount'],
-            "price" => $_POST['price'],
+            "firstname" => $_POST['firstname'],
+            "lastname" => $_POST['lastname'],
+            "email" => $_POST['email'],
+            "subject" => $_POST['subject'],
+            "priority_id" => $_POST['priority_id'],
+            "complaint" => $_POST['complaint'],
         ]);
 
         return Redirect::send("complaint", ["success" => "Edit successful"]);
