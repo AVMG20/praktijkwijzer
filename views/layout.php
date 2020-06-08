@@ -34,9 +34,15 @@ use Classes\Auth;
                 <li class="nav-item <?php if (Redirect::getRoute() == Redirect::route("")) echo "active"; ?>"><a
                             class="nav-link" href="<?php echo Redirect::route("") ?>"><i class="fas fa-home"></i> Home</a>
                 </li>
+            <?php } ?>
 
-                <li class="nav-item <?php if (Redirect::getRoute() == Redirect::route("example")) echo "active"; ?>"><a
-                            class="nav-link" href="<?php echo Redirect::route("example") ?>">Example</a>
+            <?php if(!Auth::hasPermision(10)) { ?>
+                <li class="nav-item <?php if (Redirect::getRoute() == Redirect::route("complaint-create")) echo "active"; ?>"><a
+                            class="nav-link" href="<?php echo Redirect::route("complaint-create") ?>">Complaint</a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item <?php if (Redirect::getRoute() == Redirect::route("complaint")) echo "active"; ?>"><a
+                            class="nav-link" href="<?php echo Redirect::route("complaint") ?>">Complaint</a>
                 </li>
             <?php } ?>
 

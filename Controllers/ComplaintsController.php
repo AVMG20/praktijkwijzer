@@ -4,9 +4,9 @@ namespace Controllers;
 
 use Classes\Controller;
 use Classes\Redirect;
-use Models\ExampleModel;
+use Models\ComplaintModel;
 
-class ExampleController extends Controller
+class ComplaintsController extends Controller
 {
 
     /**
@@ -14,9 +14,9 @@ class ExampleController extends Controller
      */
     public static function index()
     {
-        $test = new ExampleModel();
+        $complaint = new ComplaintModel();
 
-        return self::view('example/index', $test->all());
+        return self::view('complaint/index', $complaint->all());
     }
 
     /**
@@ -24,7 +24,7 @@ class ExampleController extends Controller
      */
     public function create()
     {
-        return self::view('example/create');
+        return self::view('complaint/create');
     }
 
     /**
@@ -32,20 +32,20 @@ class ExampleController extends Controller
      */
     public function store()
     {
-        $exampleModel = new ExampleModel();
+        $complaint = new ComplaintModel();
 
 //      check if everything is set and not empty
         foreach ($_POST as $item) {
-            if (!isset($item) || empty($item)) return Redirect::send('example-create' , ['danger' => 'Please fill in all inputs']);
+            if (!isset($item) || empty($item)) return Redirect::send('complaint-create' , ['danger' => 'Please fill in all inputs']);
         }
 
-        $exampleModel->create([
+        $complaint->create([
             "name" => $_POST['name'],
             "amount" => $_POST['amount'],
             "price" => $_POST['price'],
         ]);
 
-        return Redirect::send('example', ["success" => "Test item created!"]);
+        return Redirect::send('complaint', ["success" => "Test item created!"]);
     }
 
     /**
@@ -61,16 +61,16 @@ class ExampleController extends Controller
      */
     public function edit()
     {
-        $exampleModel = new ExampleModel();
+        $complaint = new ComplaintModel();
 
         if (!isset($_GET['id']) && !empty($_GET['id'])) {
-            Redirect::send('example', ["danger" => "Invalid ID"]);
+            Redirect::send('complaint', ["danger" => "Invalid ID"]);
             return false;
         }
 
-        return self::view('example/edit', [
+        return self::view('complaint/edit', [
             "id" => $_GET["id"],
-            "product" => $exampleModel->find($_GET['id'])
+            "product" => $complaint->find($_GET['id'])
         ]);
     }
 
@@ -80,18 +80,18 @@ class ExampleController extends Controller
     public function update()
     {
         if (!isset($_POST['id']) && !empty($_POST['id'])) {
-            return Redirect::send("example", ["danger" => "Invalid ID"]);
+            return Redirect::send("complaint", ["danger" => "Invalid ID"]);
         }
 
-        $exampleModel = new ExampleModel();
+        $complaint = new ComplaintModel();
 
-        $exampleModel->update($_POST['id'], [
+        $complaint->update($_POST['id'], [
             "name" => $_POST['name'],
             "amount" => $_POST['amount'],
             "price" => $_POST['price'],
         ]);
 
-        return Redirect::send("example", ["success" => "Edit successful"]);
+        return Redirect::send("complaint", ["success" => "Edit successful"]);
     }
 
     /**
@@ -99,11 +99,11 @@ class ExampleController extends Controller
      */
     public function destroy()
     {
-        if (!isset($_GET['id']) && !empty($_GET['id'])) return Redirect::send("example", ["danger" => "Invalid ID"]);
+        if (!isset($_GET['id']) && !empty($_GET['id'])) return Redirect::send("complaint", ["danger" => "Invalid ID"]);
 
-        $exampleModel = new ExampleModel();
-        $exampleModel->destroy($_GET["id"]);
+        $complaint = new ComplaintModel();
+        $complaint->destroy($_GET["id"]);
 
-        return Redirect::send("example", ["success" => "Item removed!"]);
+        return Redirect::send("complaint", ["success" => "Item removed!"]);
     }
 }

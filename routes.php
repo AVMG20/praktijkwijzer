@@ -1,7 +1,7 @@
 <?php
 use Classes\Route;
 use Controllers\IndexController;
-use Controllers\ExampleController;
+use Controllers\ComplaintsController;
 use Controllers\LoginController;
 
 //index
@@ -26,26 +26,28 @@ Route::set('register@store' , function() {
     LoginController::store();
 });
 
+//complaints public
+Route::set('complaint-create' , function() {
+    ComplaintsController::create();
+});
+Route::set('complaint@store' , function() {
+    ComplaintsController::store();
+});
+
 
 //everything beyond this is only available once the user is logged in
 if (!\Classes\Auth::loggedIn()) return false;
 
-//example
-Route::set('example' , function() {
-    ExampleController::index();
+//complaints
+Route::set('complaint' , function() {
+    ComplaintsController::index();
 });
-Route::set('example-create' , function() {
-    ExampleController::create();
+Route::set('complaint-edit' , function() {
+    ComplaintsController::edit();
 });
-Route::set('example-edit' , function() {
-    ExampleController::edit();
+Route::set('complaint@update' , function() {
+    ComplaintsController::update();
 });
-Route::set('example@store' , function() {
-    ExampleController::store();
-});
-Route::set('example@update' , function() {
-    ExampleController::update();
-});
-Route::set('example@destroy' , function() {
-    ExampleController::destroy();
+Route::set('complaint@destroy' , function() {
+    ComplaintsController::destroy();
 });
